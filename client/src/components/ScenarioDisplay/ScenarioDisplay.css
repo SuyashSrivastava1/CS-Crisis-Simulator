@@ -11,38 +11,41 @@
 
 .back-link {
   background: none;
-  border: none;
+  border: 2px solid transparent;
   color: var(--color-primary);
   font-family: var(--font-sans);
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size: 1.2rem;
   cursor: pointer;
   padding: 4px 8px;
-  border-radius: var(--radius-sm);
-  transition: all 0.2s ease;
+  border-radius: 0;
+  text-transform: uppercase;
+  transition: none;
 }
 
 .back-link:hover {
-  background: rgba(0, 212, 255, 0.08);
+  background: #0a0a0a;
+  border-color: var(--color-primary);
 }
 
 .incident-badge {
-  background: rgba(239, 68, 68, 0.15);
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  color: #fca5a5;
-  font-size: 0.75rem;
-  font-weight: 700;
+  background: #220000;
+  border: 2px solid var(--error);
+  color: var(--error);
+  font-size: 1rem;
+  font-weight: 400;
   padding: 4px 10px;
-  border-radius: 9999px;
+  border-radius: 0;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  box-shadow: 0 0 10px rgba(239, 68, 68, 0.1);
+  box-shadow: 4px 4px 0px var(--error);
 }
 
 .scenario-card {
   padding: 28px;
-  border-radius: var(--radius-lg);
-  box-shadow: 0 8px 32px rgba(4, 6, 20, 0.4);
+  border-radius: 0;
+  border: 2px solid var(--border-color);
+  background: var(--bg-card);
+  box-shadow: 8px 8px 0px rgba(255, 255, 255, 0.1);
 }
 
 .incident-header {
@@ -54,13 +57,14 @@
 .avatar-placeholder {
   width: 48px;
   height: 48px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%);
+  border-radius: 0;
+  background: #000;
+  border: 2px solid var(--color-primary);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
-  box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+  font-size: 2rem;
+  box-shadow: 4px 4px 0px var(--color-secondary);
 }
 
 .incident-title-area {
@@ -68,22 +72,24 @@
 }
 
 .scenario-title {
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: var(--color-text-main);
-  line-height: 1.3;
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--color-primary);
+  line-height: 1.1;
+  text-transform: uppercase;
 }
 
 .incident-timestamp {
-  font-size: 0.8rem;
+  font-size: 1.1rem;
   color: var(--color-text-muted);
   margin-top: 4px;
 }
 
 .divider {
-  height: 1px;
-  background: rgba(255, 255, 255, 0.08);
+  height: 2px;
+  background: var(--border-color);
   margin: 20px 0;
+  border: none;
 }
 
 .scenario-narrative {
@@ -91,18 +97,17 @@
 }
 
 .narrative-heading, .context-heading {
-  font-size: 0.85rem;
-  font-weight: 700;
+  font-size: 1.2rem;
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-text-muted);
+  color: var(--color-secondary);
   margin-bottom: 8px;
 }
 
 .narrative-body {
-  font-size: 1.05rem;
-  line-height: 1.6;
-  color: #e5e7eb;
+  font-size: 1.4rem;
+  line-height: 1.4;
+  color: var(--color-text-main);
 }
 
 .scenario-context {

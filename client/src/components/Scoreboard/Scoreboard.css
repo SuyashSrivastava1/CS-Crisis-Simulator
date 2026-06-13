@@ -3,7 +3,7 @@
   gap: 12px;
   align-self: flex-end;
   margin-bottom: 24px;
-  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeInUp 0.3s steps(4, end) forwards;
 }
 
 .score-badge, .streak-badge {
@@ -11,41 +11,39 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(18, 24, 58, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  border: 2px solid var(--border-color);
   padding: 8px 16px;
-  min-width: 90px;
-  backdrop-filter: blur(8px);
-  transition: all 0.3s ease;
+  min-width: 120px;
+  transition: none;
 }
 
 .score-badge {
-  border-left: 3px solid var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow: 4px 4px 0px var(--color-primary);
 }
 
 .streak-badge {
-  border-left: 3px solid var(--warning);
+  border-color: var(--warning);
+  box-shadow: 4px 4px 0px var(--warning);
 }
 
 .streak-badge.on-fire {
-  background: rgba(245, 158, 11, 0.1);
-  border-color: rgba(245, 158, 11, 0.3);
-  box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
+  background: #222200;
+  border-color: var(--warning);
 }
 
 .badge-label {
-  font-size: 0.65rem;
-  font-weight: 800;
-  letter-spacing: 0.075em;
-  color: var(--color-text-muted);
+  font-size: 1.2rem;
+  color: var(--color-text-main);
   margin-bottom: 2px;
+  text-transform: uppercase;
 }
 
 .badge-value {
-  font-size: 1.2rem;
-  font-weight: 800;
+  font-size: 1.8rem;
   font-family: var(--font-mono);
+  text-shadow: 2px 2px 0px #000;
 }
 
 .score-badge .badge-value {
@@ -57,5 +55,5 @@
 }
 
 .streak-badge.pulse {
-  animation: streakPop 0.5s ease-out;
+  animation: streakPop 0.5s steps(4, end);
 }
