@@ -12,6 +12,7 @@ export default function App() {
   const [isDemoMode, setIsDemoMode] = useState(true);
   const [phase, setPhase] = useState('idle'); // idle | loading-scenario | scenario-ready | loading-evaluation | feedback-shown
   const [subject, setSubject] = useState('');
+  const [currentDifficulty, setCurrentDifficulty] = useState('Medium');
   const [scenario, setScenario] = useState(null);
   const [evaluation, setEvaluation] = useState(null);
   const [error, setError] = useState(null);
@@ -30,11 +31,13 @@ export default function App() {
     let newScore = score;
     let newStreak = streak;
 
+    const multiplier = currentDifficulty === 'Easy' ? 0.5 : currentDifficulty === 'Hard' ? 1.5 : 1.0;
+
     if (verdict === 'correct') {
-      newScore += Math.max(0, 10 - (hintsUsed * 2));
+      newScore += Math.max(0, (10 * multiplier) - (hintsUsed * 2));
       newStreak += 1;
     } else if (verdict === 'partial') {
-      newScore += Math.max(0, 5 - (hintsUsed * 1));
+      newScore += Math.max(0, (5 * multiplier) - (hintsUsed * 1));
       // Streak is maintained for partial, doesn't increment or reset
     } else if (verdict === 'incorrect') {
       newScore += 0;
@@ -47,14 +50,15 @@ export default function App() {
     localStorage.setItem('cs_crisis_streak', newStreak.toString());
   };
 
-  const handleSelectSubject = async (selectedSubject) => {
+  const handleSelectSubject = async (selectedSubject, difficulty = 'Medium') => {
     setSubject(selectedSubject);
+    setCurrentDifficulty(difficulty);
     setPhase('loading-scenario');
     setError(null);
     try {
       const data = isDemoMode
-        ? await mockGenerateScenario(selectedSubject)
-        : await generateScenario(selectedSubject);
+        ? await mockGenerateScenario(selectedSubject, difficulty)
+        : await generateScenario(selectedSubject, difficulty);
       setScenario(data);
       setPhase('scenario-ready');
     } catch (err) {

@@ -7,14 +7,14 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
  * @param {string} subject 
  * @returns {Promise<object>} scenario data
  */
-export async function generateScenario(subject) {
+export async function generateScenario(subject, difficulty) {
   try {
     const response = await fetch(`${BASE_URL}/api/generate-scenario`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ subject }),
+      body: JSON.stringify({ subject, difficulty }),
     });
 
     if (!response.ok) {

@@ -40,21 +40,33 @@ const mockScenarios = [
 // Helper to simulate network latency
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-export async function mockGenerateScenario(subject) {
+export async function mockGenerateScenario(subject, difficulty = 'Medium') {
   await delay(1500); // simulate 1.5s delay
   // Pick a scenario randomly, but loosely based on subject if possible
   const lowerSubject = (subject || "").toLowerCase();
   
+  let baseScenario;
   if (lowerSubject.includes('database') || lowerSubject.includes('sql') || lowerSubject.includes('index')) {
-    return mockScenarios[0];
+    baseScenario = mockScenarios[0];
   } else if (lowerSubject.includes('memory') || lowerSubject.includes('node') || lowerSubject.includes('leak')) {
-    return mockScenarios[1];
+    baseScenario = mockScenarios[1];
   } else if (lowerSubject.includes('network') || lowerSubject.includes('502') || lowerSubject.includes('proxy')) {
-    return mockScenarios[2];
+    baseScenario = mockScenarios[2];
   } else {
     // Return random scenario
-    return mockScenarios[Math.floor(Math.random() * mockScenarios.length)];
+    baseScenario = mockScenarios[Math.floor(Math.random() * mockScenarios.length)];
   }
+
+  const scenario = { ...baseScenario };
+
+  if (difficulty === 'Easy') {
+    scenario.context = `[EASY MODE HINT] The exact root cause is visible below:\n\n${scenario.context}`;
+  } else if (difficulty === 'Hard') {
+    scenario.narrative = `[HARD MODE] Users are complaining about things being broken. Some recent frontend commits were pushed, maybe that's it? Oh, and here are some logs:\n\n` + scenario.narrative;
+    scenario.context = `[WARN] Free space on /dev/sda1 is 42%\n[INFO] Starting cron job...\n` + scenario.context + `\n[ERROR] Connection reset by peer`;
+  }
+
+  return scenario;
 }
 
 export async function mockEvaluateResponse(scenarioData, userResponse) {

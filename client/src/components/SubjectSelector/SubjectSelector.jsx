@@ -17,6 +17,7 @@ const CURATED_SUBJECTS = [
 export default function SubjectSelector({ onSelectSubject, isLoading }) {
   const [selectedId, setSelectedId] = useState(null);
   const [customSubject, setCustomSubject] = useState('');
+  const [difficulty, setDifficulty] = useState('Medium');
 
   const handleSelectCurated = (subject) => {
     setSelectedId(subject.id);
@@ -32,9 +33,9 @@ export default function SubjectSelector({ onSelectSubject, isLoading }) {
     e.preventDefault();
     if (selectedId) {
       const subject = CURATED_SUBJECTS.find(s => s.id === selectedId);
-      if (subject) onSelectSubject(subject.name);
+      if (subject) onSelectSubject(subject.name, difficulty);
     } else if (customSubject.trim() !== '') {
-      onSelectSubject(customSubject.trim());
+      onSelectSubject(customSubject.trim(), difficulty);
     }
   };
 
@@ -78,6 +79,23 @@ export default function SubjectSelector({ onSelectSubject, isLoading }) {
           disabled={isLoading}
         />
       </form>
+
+      <div className="difficulty-selector glass-card" style={{ marginTop: '24px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <h3 className="form-label" style={{ margin: 0 }}>Select Difficulty</h3>
+        <div style={{ display: 'flex', gap: '12px' }}>
+          {['Easy', 'Medium', 'Hard'].map(level => (
+            <button
+              key={level}
+              type="button"
+              className={`btn ${difficulty === level ? 'btn-primary' : 'btn-secondary'}`}
+              style={{ flex: 1 }}
+              onClick={() => setDifficulty(level)}
+            >
+              {level}
+            </button>
+          ))}
+        </div>
+      </div>
 
       <div className="action-row">
         <button

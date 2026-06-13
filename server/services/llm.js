@@ -5,8 +5,8 @@ import config from '../config/index.js';
 
 const ai = new GoogleGenAI({ apiKey: config.geminiApiKey });
 
-export async function generateScenario(subject, retries = 2) {
-  const prompt = generateScenarioPrompt(subject);
+export async function generateScenario(subject, difficulty = 'Medium', retries = 2) {
+  const prompt = generateScenarioPrompt(subject, difficulty);
   
   for (let i = 0; i <= retries; i++) {
     try {

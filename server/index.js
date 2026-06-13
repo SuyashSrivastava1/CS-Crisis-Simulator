@@ -55,7 +55,12 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-  console.log(`API Health Check: http://localhost:${PORT}/api/health`);
-});
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+    console.log(`API Health Check: http://localhost:${PORT}/api/health`);
+  });
+}
+
+// Export for Vercel Serverless Function
+export default app;

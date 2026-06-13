@@ -6,14 +6,14 @@ const router = express.Router();
 
 router.post('/', async (req, res) => {
   try {
-    const { subject } = req.body;
+    const { subject, difficulty = 'Medium' } = req.body;
 
     if (!subject || typeof subject !== 'string' || subject.trim() === '') {
       return res.status(400).json({ error: 'Subject is required and must be a non-empty string.' });
     }
 
     const trimmedSubject = subject.trim();
-    const scenarioData = await generateScenario(trimmedSubject);
+    const scenarioData = await generateScenario(trimmedSubject, difficulty);
 
     // Attach scenarioId
     const responseData = {
