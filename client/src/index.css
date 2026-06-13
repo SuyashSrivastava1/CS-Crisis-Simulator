@@ -23,8 +23,9 @@
   --border-focus: #39ff14;
   
   /* Fonts */
-  --font-sans: 'VT323', monospace;
-  --font-mono: 'VT323', monospace;
+  --font-sans: 'JetBrains Mono', monospace;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-arcade: 'VT323', monospace;
   
   /* Layout & Spacing */
   --radius-sm: 0px;
@@ -46,10 +47,10 @@ body {
   color: var(--color-text-main);
   font-family: var(--font-sans);
   min-height: 100vh;
-  line-height: 1.4;
+  line-height: 1.5;
   overflow-x: hidden;
-  font-size: 1.3rem; /* VT323 is small, needs a bump */
-  letter-spacing: 0.05em;
+  font-size: 0.95rem; /* Standard font size for JetBrains */
+  letter-spacing: normal;
 }
 
 /* CRT Scanline Effect */
@@ -122,6 +123,7 @@ body::before {
 }
 
 .hero-title {
+  font-family: var(--font-arcade);
   font-size: 3rem;
   font-weight: 400;
   text-align: center;
@@ -145,8 +147,8 @@ body::before {
   align-items: center;
   justify-content: center;
   padding: 12px 24px;
-  font-family: var(--font-sans);
-  font-size: 1.2rem;
+  font-family: var(--font-arcade);
+  font-size: 1.4rem;
   border-radius: 0;
   border: 2px solid transparent;
   cursor: pointer;
@@ -205,7 +207,8 @@ body::before {
 
 .form-label {
   display: block;
-  font-size: 1.2rem;
+  font-family: var(--font-arcade);
+  font-size: 1.4rem;
   color: var(--color-primary);
   margin-bottom: 8px;
   text-transform: uppercase;
@@ -219,8 +222,8 @@ body::before {
   color: var(--color-primary);
   padding: 16px;
   font-family: var(--font-mono);
-  font-size: 1.2rem;
-  line-height: 1.4;
+  font-size: 0.95rem;
+  line-height: 1.5;
   resize: vertical;
   transition: none;
 }

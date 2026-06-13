@@ -72,7 +72,8 @@
 }
 
 .scenario-title {
-  font-size: 2rem;
+  font-family: var(--font-arcade);
+  font-size: 2.2rem;
   font-weight: 400;
   color: var(--color-primary);
   line-height: 1.1;
@@ -97,7 +98,8 @@
 }
 
 .narrative-heading, .context-heading {
-  font-size: 1.2rem;
+  font-family: var(--font-arcade);
+  font-size: 1.4rem;
   font-weight: 400;
   text-transform: uppercase;
   color: var(--color-secondary);
@@ -105,8 +107,9 @@
 }
 
 .narrative-body {
-  font-size: 1.4rem;
-  line-height: 1.4;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  line-height: 1.5;
   color: var(--color-text-main);
 }
 
