@@ -106,7 +106,7 @@ export default function App() {
   return (
     <div className="app-container">
       <header className="app-header">
-        <h1 className="hero-title">CS Crisis Simulator</h1>
+        <h1 className="hero-title">ConceptCraft</h1>
         <p className="hero-tagline">
           Step into the boots of an On-Call Engineer. Diagnose production systems breakdowns and get graded by a Senior Engineer.
         </p>

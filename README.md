@@ -1,6 +1,6 @@
-# 🚨 CS Crisis Simulator
+# 🚨 ConceptCraft
 
-Step into the boots of an On-Call Engineer! **CS Crisis Simulator** is a scenario-based learning platform that teaches computer science concepts through realistic software engineering crises. Instead of asking textbook questions, the platform generates a production-style problem tied to a user-chosen subject, asks the user to diagnose and fix it, and gives instant feedback from an AI-powered "Senior Engineer" persona.
+Step into the boots of an On-Call Engineer! **ConceptCraft** is a scenario-based learning platform that teaches computer science concepts through realistic software engineering crises. Instead of asking textbook questions, the platform generates a production-style problem tied to a user-chosen subject, asks the user to diagnose and fix it, and gives instant feedback from an AI-powered "Senior Engineer" persona.
 
 ---
 

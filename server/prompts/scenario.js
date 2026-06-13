@@ -18,7 +18,7 @@ export const generateScenarioPrompt = (subject, difficulty = 'Medium') => {
 - Provide a standard, realistic production crisis with moderate clues.`;
   }
 
-  return `You are a scenario designer for a CS crisis simulator used by computer science students.
+  return `You are a scenario designer for ConceptCraft, used by computer science students.
 
 Given a CS subject, generate a REALISTIC production engineering crisis scenario 
 that tests understanding of that subject.
