@@ -1,0 +1,125 @@
+.subject-selector-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.section-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.section-subtitle {
+  color: var(--color-text-muted);
+  text-align: center;
+  font-size: 0.95rem;
+  margin-bottom: 32px;
+}
+
+.subjects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.subject-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 18px;
+  border-radius: var(--radius-md);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.subject-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0, 212, 255, 0.25);
+  box-shadow: 0 4px 20px rgba(0, 212, 255, 0.05);
+}
+
+.subject-card.active {
+  background: rgba(0, 212, 255, 0.08);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
+}
+
+.subject-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.subject-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--color-text-main);
+}
+
+.subject-card.active .subject-name {
+  color: var(--color-primary);
+}
+
+.subject-desc {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+.custom-subject-form {
+  padding: 16px;
+  margin-bottom: 32px;
+  border-radius: var(--radius-md);
+}
+
+.custom-input-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.experimental-badge {
+  background: rgba(124, 58, 237, 0.2);
+  border: 1px solid rgba(124, 58, 237, 0.4);
+  color: #c084fc;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+
+.custom-input {
+  width: 100%;
+  background: rgba(8, 11, 30, 0.8);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--color-text-main);
+  padding: 12px 16px;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.custom-input:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.15);
+}
+
+.action-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.start-button {
+  width: 100%;
+  max-width: 320px;
+  padding: 14px 28px;
+  font-size: 1.05rem;
+}

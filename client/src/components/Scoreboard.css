@@ -1,0 +1,61 @@
+.scoreboard-container {
+  display: flex;
+  gap: 12px;
+  align-self: flex-end;
+  margin-bottom: 24px;
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.score-badge, .streak-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(18, 24, 58, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 8px 16px;
+  min-width: 90px;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+
+.score-badge {
+  border-left: 3px solid var(--color-primary);
+}
+
+.streak-badge {
+  border-left: 3px solid var(--warning);
+}
+
+.streak-badge.on-fire {
+  background: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.3);
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
+}
+
+.badge-label {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.075em;
+  color: var(--color-text-muted);
+  margin-bottom: 2px;
+}
+
+.badge-value {
+  font-size: 1.2rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+}
+
+.score-badge .badge-value {
+  color: var(--color-primary);
+}
+
+.streak-badge .badge-value {
+  color: var(--warning);
+}
+
+.streak-badge.pulse {
+  animation: streakPop 0.5s ease-out;
+}

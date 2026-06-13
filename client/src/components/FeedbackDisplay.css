@@ -1,0 +1,213 @@
+.feedback-wrapper {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.confetti-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+  border-radius: var(--radius-lg);
+}
+
+.feedback-card {
+  border-width: 1px;
+  border-style: solid;
+  box-shadow: 0 10px 40px rgba(4, 6, 20, 0.5);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Verdict specific shadows and borders */
+.verdict-correct .feedback-card {
+  border-color: rgba(16, 185, 129, 0.3);
+  animation: pulseGlowSuccess 3s infinite ease-in-out;
+}
+
+.verdict-partial .feedback-card {
+  border-color: rgba(245, 158, 11, 0.3);
+  animation: pulseGlowWarning 3s infinite ease-in-out;
+}
+
+.verdict-incorrect .feedback-card {
+  border-color: rgba(239, 68, 68, 0.3);
+  animation: pulseGlowError 3s infinite ease-in-out;
+}
+
+.verdict-banner {
+  margin: -24px -24px 20px -24px;
+  padding: 12px 24px;
+  text-align: center;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+}
+
+.verdict-correct .verdict-banner {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0.05) 100%);
+  border-bottom: 1px solid rgba(16, 185, 129, 0.3);
+  color: #a7f3d0;
+}
+
+.verdict-partial .verdict-banner {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(245, 158, 11, 0.05) 100%);
+  border-bottom: 1px solid rgba(245, 158, 11, 0.3);
+  color: #fde68a;
+}
+
+.verdict-incorrect .verdict-banner {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(239, 68, 68, 0.05) 100%);
+  border-bottom: 1px solid rgba(239, 68, 68, 0.3);
+  color: #fecaca;
+}
+
+.feedback-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.author-avatar {
+  font-size: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-color);
+}
+
+.author-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+
+.author-title {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+}
+
+.feedback-quote {
+  background: rgba(4, 6, 20, 0.4);
+  border-left: 3px solid var(--color-primary);
+  padding: 16px 20px;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  margin-bottom: 24px;
+}
+
+.verdict-correct .feedback-quote { border-left-color: var(--success); }
+.verdict-partial .feedback-quote { border-left-color: var(--warning); }
+.verdict-incorrect .feedback-quote { border-left-color: var(--error); }
+
+.feedback-quote-text {
+  font-size: 1.02rem;
+  font-style: italic;
+  line-height: 1.6;
+  color: #e5e7eb;
+}
+
+.matched-concepts-section {
+  margin-bottom: 24px;
+}
+
+.section-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  margin-bottom: 10px;
+}
+
+.concepts-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.concept-chip {
+  background: rgba(0, 212, 255, 0.08);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  color: #a5f3fc;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 9999px;
+}
+
+.hint-card {
+  background: rgba(245, 158, 11, 0.03);
+  border: 1px solid rgba(245, 158, 11, 0.1);
+  border-radius: var(--radius-md);
+  margin-bottom: 24px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.hint-card.expanded {
+  background: rgba(245, 158, 11, 0.06);
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+.hint-toggle-btn {
+  width: 100%;
+  background: none;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  color: #fde68a;
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: left;
+}
+
+.hint-toggle-btn:hover {
+  background: rgba(245, 158, 11, 0.05);
+}
+
+.hint-content {
+  padding: 0 16px 16px 16px;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: #fef3c7;
+}
+
+.feedback-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+.retry-btn {
+  flex: 1;
+  max-width: 160px;
+}
+
+.next-btn {
+  flex: 1;
+  max-width: 200px;
+}
+
+@media (max-width: 480px) {
+  .feedback-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .retry-btn, .next-btn {
+    max-width: none;
+  }
+}

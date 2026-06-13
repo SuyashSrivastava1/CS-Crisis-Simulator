@@ -1,0 +1,14 @@
+{
+  "name": "cs-crisis-simulator",
+  "version": "1.0.0",
+  "description": "A scenario-based learning platform that teaches computer science concepts through realistic software engineering crises.",
+  "scripts": {
+    "install:all": "npm install && npm install --prefix server && npm install --prefix client",
+    "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "start": "node server/index.js",
+    "build": "npm run build --prefix client"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
