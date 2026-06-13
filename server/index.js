@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
+import config from './config/index.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -8,13 +8,13 @@ import scenarioRouter from './routes/scenario.js';
 import evaluateRouter from './routes/evaluate.js';
 import hintRouter from './routes/hint.js';
 
-dotenv.config();
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = config.port;
 
 // CORS configuration
 app.use(cors({

@@ -1,16 +1,9 @@
 import { GoogleGenAI } from '@google/genai';
-import { generateScenarioPrompt } from '../prompts/generateScenario.js';
+import { generateScenarioPrompt } from '../prompts/scenario.js';
 import { evaluatePrompt } from '../prompts/evaluate.js';
-import dotenv from 'dotenv';
+import config from '../config/index.js';
 
-dotenv.config();
-
-const apiKey = process.env.GEMINI_API_KEY;
-if (!apiKey) {
-  console.warn('Warning: GEMINI_API_KEY environment variable is not set. Ensure it is defined in server/.env or root .env.');
-}
-
-const ai = new GoogleGenAI({ apiKey });
+const ai = new GoogleGenAI({ apiKey: config.geminiApiKey });
 
 export async function generateScenario(subject, retries = 2) {
   const prompt = generateScenarioPrompt(subject);

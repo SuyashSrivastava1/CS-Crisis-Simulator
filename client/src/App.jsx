@@ -5,7 +5,7 @@ import ResponseInput from './components/ResponseInput';
 import FeedbackDisplay from './components/FeedbackDisplay';
 import Scoreboard from './components/Scoreboard';
 import LoadingState from './components/LoadingState';
-import { generateScenario, evaluateResponse } from './api';
+import { generateScenario, evaluateResponse } from './services/api';
 
 export default function App() {
   const [phase, setPhase] = useState('idle'); // idle | loading-scenario | scenario-ready | loading-evaluation | feedback-shown

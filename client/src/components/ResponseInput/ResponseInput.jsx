@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getHint } from '../api';
+import { getHint } from '../../services/api';
 import './ResponseInput.css';
 
 export default function ResponseInput({ onSubmit, isLoading, scenario }) {
