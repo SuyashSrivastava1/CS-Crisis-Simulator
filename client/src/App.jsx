@@ -6,8 +6,10 @@ import FeedbackDisplay from './components/FeedbackDisplay';
 import Scoreboard from './components/Scoreboard';
 import LoadingState from './components/LoadingState';
 import { generateScenario, evaluateResponse } from './services/api';
+import { mockGenerateScenario, mockEvaluateResponse } from './mocks/demoData';
 
 export default function App() {
+  const [isDemoMode, setIsDemoMode] = useState(true);
   const [phase, setPhase] = useState('idle'); // idle | loading-scenario | scenario-ready | loading-evaluation | feedback-shown
   const [subject, setSubject] = useState('');
   const [scenario, setScenario] = useState(null);
@@ -24,15 +26,15 @@ export default function App() {
     return saved ? parseInt(saved, 10) : 0;
   });
 
-  const updateScoreAndStreak = (verdict) => {
+  const updateScoreAndStreak = (verdict, hintsUsed = 0) => {
     let newScore = score;
     let newStreak = streak;
 
     if (verdict === 'correct') {
-      newScore += 10;
+      newScore += Math.max(0, 10 - (hintsUsed * 2));
       newStreak += 1;
     } else if (verdict === 'partial') {
-      newScore += 5;
+      newScore += Math.max(0, 5 - (hintsUsed * 1));
       // Streak is maintained for partial, doesn't increment or reset
     } else if (verdict === 'incorrect') {
       newScore += 0;
@@ -50,7 +52,9 @@ export default function App() {
     setPhase('loading-scenario');
     setError(null);
     try {
-      const data = await generateScenario(selectedSubject);
+      const data = isDemoMode
+        ? await mockGenerateScenario(selectedSubject)
+        : await generateScenario(selectedSubject);
       setScenario(data);
       setPhase('scenario-ready');
     } catch (err) {
@@ -60,13 +64,15 @@ export default function App() {
     }
   };
 
-  const handleSubmitResponse = async (userResponse) => {
+  const handleSubmitResponse = async (userResponse, hintsUsed = 0) => {
     setPhase('loading-evaluation');
     setError(null);
     try {
-      const data = await evaluateResponse(scenario, userResponse);
+      const data = isDemoMode
+        ? await mockEvaluateResponse(scenario, userResponse)
+        : await evaluateResponse(scenario, userResponse);
       setEvaluation(data);
-      updateScoreAndStreak(data.verdict);
+      updateScoreAndStreak(data.verdict, hintsUsed);
       setPhase('feedback-shown');
     } catch (err) {
       console.error(err);
@@ -95,6 +101,16 @@ export default function App() {
         <p className="hero-tagline">
           Step into the boots of an On-Call Engineer. Diagnose production systems breakdowns and get graded by a Senior Engineer.
         </p>
+        <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px' }}>
+          <label htmlFor="demo-toggle" style={{ color: '#94a3b8', fontSize: '0.9rem' }}>Demo Mode (Save API limits)</label>
+          <input 
+            id="demo-toggle"
+            type="checkbox" 
+            checked={isDemoMode}
+            onChange={(e) => setIsDemoMode(e.target.checked)}
+            style={{ cursor: 'pointer', width: '18px', height: '18px' }}
+          />
+        </div>
       </header>
 
       <Scoreboard score={score} streak={streak} />
@@ -132,7 +148,7 @@ export default function App() {
       {phase === 'scenario-ready' && (
         <>
           <ScenarioDisplay scenario={scenario} onBack={handleNewScenario} />
-          <ResponseInput onSubmit={handleSubmitResponse} isLoading={false} scenario={scenario} />
+          <ResponseInput onSubmit={handleSubmitResponse} isLoading={false} scenario={scenario} isDemoMode={isDemoMode} />
         </>
       )}
 

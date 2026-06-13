@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { getHint } from '../../services/api';
+import { mockGetHint } from '../../mocks/demoData';
 import './ResponseInput.css';
 
-export default function ResponseInput({ onSubmit, isLoading, scenario }) {
+export default function ResponseInput({ onSubmit, isLoading, scenario, isDemoMode }) {
   const [response, setResponse] = useState('');
   const [isCodeMode, setIsCodeMode] = useState(false);
-  const [hint, setHint] = useState(null);
+  const [hints, setHints] = useState([]);
+  const [visibleHintsCount, setVisibleHintsCount] = useState(0);
   const [isLoadingHint, setIsLoadingHint] = useState(false);
 
   const minLength = 20;
@@ -13,23 +15,35 @@ export default function ResponseInput({ onSubmit, isLoading, scenario }) {
   const isTooShort = currentLength < minLength;
 
   const handleGetHint = async () => {
-    if (isLoadingHint) return;
-    setIsLoadingHint(true);
-    try {
-      const data = await getHint(scenario);
-      setHint(data.hint);
-    } catch (err) {
-      console.error(err);
-      setHint('Failed to load hint. Give it your best guess!');
-    } finally {
-      setIsLoadingHint(false);
+    if (isLoadingHint || visibleHintsCount >= 3) return;
+    
+    if (hints.length === 0) {
+      setIsLoadingHint(true);
+      try {
+        const data = isDemoMode ? await mockGetHint(scenario) : await getHint(scenario);
+        if (data && data.hints && data.hints.length > 0) {
+          setHints(data.hints);
+          setVisibleHintsCount(1);
+        } else {
+          setHints(['Failed to load hint. Give it your best guess!']);
+          setVisibleHintsCount(1);
+        }
+      } catch (err) {
+        console.error(err);
+        setHints(['Failed to load hint. Give it your best guess!']);
+        setVisibleHintsCount(1);
+      } finally {
+        setIsLoadingHint(false);
+      }
+    } else {
+      setVisibleHintsCount(prev => Math.min(prev + 1, 3));
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!isTooShort && !isLoading) {
-      onSubmit(response);
+      onSubmit(response, visibleHintsCount);
     }
   };
 
@@ -72,7 +86,7 @@ export default function ResponseInput({ onSubmit, isLoading, scenario }) {
           disabled={isLoading}
         />
 
-        {hint && (
+        {visibleHintsCount > 0 && (
           <div className="hint-box animate-fade-in" style={{
             marginTop: '12px',
             padding: '12px',
@@ -80,9 +94,16 @@ export default function ResponseInput({ onSubmit, isLoading, scenario }) {
             borderLeft: '4px solid #3b82f6',
             borderRadius: '4px',
             fontSize: '0.9rem',
-            color: '#bfdbfe'
+            color: '#bfdbfe',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '8px'
           }}>
-            <strong>Gist:</strong> {hint}
+            {hints.slice(0, visibleHintsCount).map((h, i) => (
+              <div key={i}>
+                <strong>Hint {i + 1}:</strong> {h}
+              </div>
+            ))}
           </div>
         )}
 
@@ -99,14 +120,14 @@ export default function ResponseInput({ onSubmit, isLoading, scenario }) {
             )}
           </div>
           <div className="button-group" style={{ display: 'flex', gap: '12px' }}>
-            {!hint && (
+            {visibleHintsCount < 3 && (
               <button
                 type="button"
                 className="btn btn-secondary"
                 onClick={handleGetHint}
                 disabled={isLoadingHint || isLoading}
               >
-                {isLoadingHint ? 'Getting gist...' : 'Get a Gist'}
+                {isLoadingHint ? 'Getting hint...' : `Get Hint ${visibleHintsCount + 1}/3 (-2 pts)`}
               </button>
             )}
             <button

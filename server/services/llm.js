@@ -120,3 +120,49 @@ export async function generateText(prompt, retries = 2) {
     }
   }
 }
+
+import { hintPrompt } from '../prompts/hint.js';
+
+export async function generateHints(scenario, retries = 2) {
+  const prompt = hintPrompt(
+    scenario.narrative,
+    scenario.targetConcept,
+    scenario.rubricPoints
+  );
+  
+  for (let i = 0; i <= retries; i++) {
+    try {
+      const response = await ai.models.generateContent({
+        model: 'gemini-2.5-flash',
+        contents: prompt,
+        config: {
+          responseMimeType: 'application/json',
+          responseSchema: {
+            type: 'OBJECT',
+            properties: {
+              hints: {
+                type: 'ARRAY',
+                items: { type: 'STRING' },
+                description: 'Exactly 3 progressive hints'
+              }
+            },
+            required: ['hints']
+          }
+        }
+      });
+      
+      const text = response.text;
+      if (!text) throw new Error('Empty response from LLM');
+      
+      const parsed = JSON.parse(text);
+      if (!parsed.hints || !Array.isArray(parsed.hints) || parsed.hints.length === 0) {
+        throw new Error('Invalid response structure');
+      }
+      
+      return parsed.hints;
+    } catch (error) {
+      console.error(`Hint generation attempt ${i + 1} failed:`, error);
+      if (i === retries) throw new Error(`Failed to generate hints: ${error.message}`);
+    }
+  }
+}
