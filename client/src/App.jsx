@@ -132,7 +132,7 @@ export default function App() {
       {phase === 'scenario-ready' && (
         <>
           <ScenarioDisplay scenario={scenario} onBack={handleNewScenario} />
-          <ResponseInput onSubmit={handleSubmitResponse} isLoading={false} />
+          <ResponseInput onSubmit={handleSubmitResponse} isLoading={false} scenario={scenario} />
         </>
       )}
 

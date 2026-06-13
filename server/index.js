@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 
 import scenarioRouter from './routes/scenario.js';
 import evaluateRouter from './routes/evaluate.js';
+import hintRouter from './routes/hint.js';
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.use(express.json());
 // API Routes
 app.use('/api/generate-scenario', scenarioRouter);
 app.use('/api/evaluate', evaluateRouter);
+app.use('/api/hint', hintRouter);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

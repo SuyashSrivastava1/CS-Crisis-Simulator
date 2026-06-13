@@ -112,3 +112,18 @@ export async function evaluateResponse(scenario, userResponse, retries = 2) {
     }
   }
 }
+
+export async function generateText(prompt, retries = 2) {
+  for (let i = 0; i <= retries; i++) {
+    try {
+      const response = await ai.models.generateContent({
+        model: 'gemini-2.5-flash',
+        contents: prompt
+      });
+      return response.text;
+    } catch (error) {
+      console.error(`Text generation attempt ${i + 1} failed:`, error);
+      if (i === retries) throw error;
+    }
+  }
+}

@@ -1,13 +1,30 @@
 import React, { useState } from 'react';
+import { getHint } from '../api';
 import './ResponseInput.css';
 
-export default function ResponseInput({ onSubmit, isLoading }) {
+export default function ResponseInput({ onSubmit, isLoading, scenario }) {
   const [response, setResponse] = useState('');
   const [isCodeMode, setIsCodeMode] = useState(false);
+  const [hint, setHint] = useState(null);
+  const [isLoadingHint, setIsLoadingHint] = useState(false);
 
   const minLength = 20;
   const currentLength = response.trim().length;
   const isTooShort = currentLength < minLength;
+
+  const handleGetHint = async () => {
+    if (isLoadingHint) return;
+    setIsLoadingHint(true);
+    try {
+      const data = await getHint(scenario);
+      setHint(data.hint);
+    } catch (err) {
+      console.error(err);
+      setHint('Failed to load hint. Give it your best guess!');
+    } finally {
+      setIsLoadingHint(false);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -55,6 +72,20 @@ export default function ResponseInput({ onSubmit, isLoading }) {
           disabled={isLoading}
         />
 
+        {hint && (
+          <div className="hint-box animate-fade-in" style={{
+            marginTop: '12px',
+            padding: '12px',
+            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+            borderLeft: '4px solid #3b82f6',
+            borderRadius: '4px',
+            fontSize: '0.9rem',
+            color: '#bfdbfe'
+          }}>
+            <strong>Gist:</strong> {hint}
+          </div>
+        )}
+
         <div className="response-footer">
           <div className="char-counter">
             {isTooShort ? (
@@ -67,13 +98,25 @@ export default function ResponseInput({ onSubmit, isLoading }) {
               </span>
             )}
           </div>
-          <button
-            type="submit"
-            className="btn btn-primary submit-btn"
-            disabled={isTooShort || isLoading}
-          >
-            {isLoading ? 'Sending to Senior Eng...' : 'Submit Diagnosis →'}
-          </button>
+          <div className="button-group" style={{ display: 'flex', gap: '12px' }}>
+            {!hint && (
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={handleGetHint}
+                disabled={isLoadingHint || isLoading}
+              >
+                {isLoadingHint ? 'Getting gist...' : 'Get a Gist'}
+              </button>
+            )}
+            <button
+              type="submit"
+              className="btn btn-primary submit-btn"
+              disabled={isTooShort || isLoading}
+            >
+              {isLoading ? 'Sending to Senior Eng...' : 'Submit Diagnosis →'}
+            </button>
+          </div>
         </div>
       </form>
     </div>
