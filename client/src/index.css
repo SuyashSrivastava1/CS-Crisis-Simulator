@@ -124,13 +124,14 @@ body::before {
 
 .hero-title {
   font-family: var(--font-arcade);
-  font-size: 3rem;
+  font-size: 3.5rem;
   font-weight: 400;
   text-align: center;
   color: var(--color-primary);
-  text-shadow: 4px 4px 0px var(--color-secondary);
+  text-shadow: 2px 2px 0px var(--color-secondary);
   margin-bottom: 8px;
   text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 .hero-tagline {
