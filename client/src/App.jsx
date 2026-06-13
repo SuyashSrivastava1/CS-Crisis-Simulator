@@ -92,6 +92,11 @@ export default function App() {
   };
 
   const handleNewScenario = () => {
+    setEvaluation(null);
+    handleSelectSubject(subject, currentDifficulty);
+  };
+
+  const handleChangeTopic = () => {
     setError(null);
     setScenario(null);
     setEvaluation(null);
@@ -151,7 +156,7 @@ export default function App() {
 
       {phase === 'scenario-ready' && (
         <>
-          <ScenarioDisplay scenario={scenario} onBack={handleNewScenario} />
+          <ScenarioDisplay scenario={scenario} onBack={handleChangeTopic} />
           <ResponseInput onSubmit={handleSubmitResponse} isLoading={false} scenario={scenario} isDemoMode={isDemoMode} />
         </>
       )}
@@ -165,11 +170,12 @@ export default function App() {
 
       {phase === 'feedback-shown' && (
         <>
-          <ScenarioDisplay scenario={scenario} onBack={handleNewScenario} />
+          <ScenarioDisplay scenario={scenario} onBack={handleChangeTopic} />
           <FeedbackDisplay 
             evaluation={evaluation} 
             onRetry={handleRetry} 
             onNewScenario={handleNewScenario} 
+            onChangeTopic={handleChangeTopic}
           />
         </>
       )}

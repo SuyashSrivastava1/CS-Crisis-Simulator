@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './FeedbackDisplay.css';
 
-export default function FeedbackDisplay({ evaluation, onRetry, onNewScenario }) {
+export default function FeedbackDisplay({ evaluation, onRetry, onNewScenario, onChangeTopic }) {
   const [showHint, setShowHint] = useState(false);
   const canvasRef = useRef(null);
 
@@ -165,8 +165,11 @@ export default function FeedbackDisplay({ evaluation, onRetry, onNewScenario }) 
               Try Again 🔄
             </button>
           )}
+          <button className="btn btn-secondary change-topic-btn" onClick={onChangeTopic}>
+            Change Topic
+          </button>
           <button className="btn btn-primary next-btn" onClick={onNewScenario}>
-            New Crisis →
+            Next Crisis →
           </button>
         </div>
       </div>
